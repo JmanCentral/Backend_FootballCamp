@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: msvc-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: users
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/users/**
+        - id: reservations
+          uri: http://localhost:8862
+          predicates:
+            - Path=/api/reservations/**
