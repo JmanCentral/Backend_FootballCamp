@@ -1,27 +1,26 @@
 package com.microservice.reservations.services;
 
 import com.microservice.reservations.entities.Reservation;
-import com.microservice.reservations.http.request.ReservationDTO;
-import com.microservice.reservations.http.response.CreateReservationDTO;
-import com.microservice.reservations.http.response.CreateUserDTO;
+import com.microservice.reservations.http.request.ReservationRequestDTO;
+import com.microservice.reservations.http.response.ReservationResponseDTO;
+import com.microservice.reservations.http.response.UserResponseDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IReservationService {
 
-    CreateUserDTO findByIdUser(Long id);
     // Crear una nueva reserva
-    ReservationDTO registerReservation(CreateReservationDTO reservationdto);
+    ReservationResponseDTO registerReservation(ReservationRequestDTO reservationdto);
 
     // Obtener todas las reservas
-    List<Reservation> findAll();
+    List<ReservationResponseDTO> findAll();
 
     // Obtener una reserva por su ID
-    Optional<Reservation> findById(Long id);
+    ReservationResponseDTO findById(Long id);
 
     // Obtener reservas por ID de usuario (relación lógica, no directa)
-    List<Reservation> findByUserId(Long userId);
+    List<ReservationResponseDTO> findByUserId(Long userId);
 
     // Eliminar una reserva por su ID
     void deleteById(Long id);

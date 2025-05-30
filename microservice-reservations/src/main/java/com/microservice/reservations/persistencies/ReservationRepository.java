@@ -21,5 +21,9 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
 
     List<Reservation> findByUserId(Long userId);
 
-    List<Reservation> findByEstado(String estado);
+    boolean existsByNombreReserva(String nombreReserva);
+
+    List<Reservation> findAll();
+
+
 }

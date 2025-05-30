@@ -1,14 +1,13 @@
 package com.microservice.reservations.mappers;
 
-import com.microservice.reservations.entities.EstadoReserva;
 import com.microservice.reservations.entities.Reservation;
-import com.microservice.reservations.http.request.ReservationDTO;
-import com.microservice.reservations.http.response.CreateReservationDTO;
+import com.microservice.reservations.http.request.ReservationRequestDTO;
+import com.microservice.reservations.http.response.ReservationResponseDTO;
 
 public class ReservationMapper {
 
-    public static ReservationDTO toDTO(Reservation reservation) {
-        return ReservationDTO.builder()
+    public static ReservationResponseDTO toDTO(Reservation reservation) {
+        return ReservationRequestDTO.builder()
                 .id(reservation.getId())
                 .nombreReserva(reservation.getNombreReserva())
                 .fechaReserva(reservation.getFechaReserva())
@@ -20,7 +19,7 @@ public class ReservationMapper {
                 .build();
     }
 
-    public static Reservation toEntity(CreateReservationDTO dto) {
+    public static Reservation toEntity(ReservationRequestDTO dto) {
         return Reservation.builder()
                 .id(dto.getId())
                 .nombreReserva(dto.getNombreReserva())

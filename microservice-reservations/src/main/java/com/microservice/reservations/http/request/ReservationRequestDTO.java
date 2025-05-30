@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ReservationDTO {
+public class ReservationRequestDTO {
 
     private Long id;
     private String nombreReserva;
