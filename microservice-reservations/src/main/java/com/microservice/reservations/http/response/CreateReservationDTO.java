@@ -16,10 +16,12 @@ import java.time.LocalTime;
 public class CreateReservationDTO  {
 
     private Long id;
+    private String nombreReserva;
     private LocalDate fechaReserva;
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private EstadoReserva estado;
     private Long userId;
+    private Long fieldId;
 
 }

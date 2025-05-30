@@ -1,5 +1,6 @@
 package com.microservice.reservations.services;
 
+import com.microservice.reservations.client.UserClient;
 import com.microservice.reservations.entities.Reservation;
 import com.microservice.reservations.excepciones.ConflictoReservaException;
 import com.microservice.reservations.http.request.ReservationDTO;
@@ -20,8 +21,16 @@ public class ReservationServiceImpl implements IReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Autowired
+    private UserClient userClient;
+
     @Override
     public ReservationDTO registerReservation(CreateReservationDTO reservationDTO) {
+
+        // aca se supone que va la lógica de la validación del cliente
+
+
+
         LocalDate fecha = reservationDTO.getFechaReserva();
         LocalTime horaInicio = reservationDTO.getHoraInicio();
         LocalTime horaFin = reservationDTO.getHoraFin();
