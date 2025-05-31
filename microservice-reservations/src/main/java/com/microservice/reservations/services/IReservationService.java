@@ -1,12 +1,7 @@
 package com.microservice.reservations.services;
-
-import com.microservice.reservations.entities.Reservation;
 import com.microservice.reservations.http.request.ReservationRequestDTO;
 import com.microservice.reservations.http.response.ReservationResponseDTO;
-import com.microservice.reservations.http.response.UserResponseDTO;
-
 import java.util.List;
-import java.util.Optional;
 
 public interface IReservationService {
 
@@ -21,6 +16,8 @@ public interface IReservationService {
 
     // Obtener reservas por ID de usuario (relación lógica, no directa)
     List<ReservationResponseDTO> findByUserId(Long userId);
+
+    ReservationResponseDTO update(Long id , ReservationRequestDTO dto);
 
     // Eliminar una reserva por su ID
     void deleteById(Long id);

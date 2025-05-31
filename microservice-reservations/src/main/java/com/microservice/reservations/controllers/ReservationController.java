@@ -45,6 +45,12 @@ public class ReservationController {
         return ResponseEntity.ok(reservations);
     }
 
+    @PutMapping("update/reservation/{id}")
+    public ResponseEntity<ReservationResponseDTO> update(@PathVariable Long id , @RequestBody ReservationRequestDTO dto) {
+        ReservationResponseDTO updated = reservationService.update(id , dto);
+        return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         reservationService.deleteById(id);

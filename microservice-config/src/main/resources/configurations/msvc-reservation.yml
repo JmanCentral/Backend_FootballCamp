@@ -10,7 +10,7 @@ spring:
     password: edding350
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 eureka:

@@ -4,6 +4,7 @@ import com.microservice.reservations.client.UserClient;
 import com.microservice.reservations.entities.Reservation;
 import com.microservice.reservations.excepciones.ConflictoReservaException;
 import com.microservice.reservations.excepciones.NombreEnUsoException;
+import com.microservice.reservations.excepciones.ReservaNoEncontradaException;
 import com.microservice.reservations.excepciones.UsuarioNoEncontradoException;
 import com.microservice.reservations.http.request.ReservationRequestDTO;
 import com.microservice.reservations.http.response.ReservationResponseDTO;
@@ -82,6 +83,37 @@ public class ReservationServiceImpl implements IReservationService {
         List<Reservation> reservations = reservationRepository.findByUserId(userId);
         return reservations.stream().map(ReservationMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ReservationResponseDTO update(Long id, ReservationRequestDTO reservationDTO) {
+
+        // 1. Verificar existencia de reserva
+        Reservation existingReservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new ReservaNoEncontradaException("La reserva con ID " + id + " no existe."));
+
+        try {
+            userClient.obtenerPorId(reservationDTO.getUserId());
+        } catch (Exception e) {
+            throw new UsuarioNoEncontradoException("El usuario con ID " + reservationDTO.getUserId() + " no existe.");
+        }
+
+        if (reservationRepository.existsByNombreReserva(reservationDTO.getNombreReserva())) {
+            throw new NombreEnUsoException("El nombre de la reserva ya está en uso.");
+        }
+
+        // 4. Validar conflictos de horario
+        List<Reservation> conflictos = reservationRepository.findConflictingReservations(
+                reservationDTO.getFechaReserva(), reservationDTO.getHoraInicio(), reservationDTO.getHoraFin());
+
+        if (!conflictos.isEmpty()) {
+            throw new ConflictoReservaException("Ya existe una reserva en ese horario.");
+        }
+
+        ReservationMapper.updateEntityFromDTO(reservationDTO, existingReservation);
+
+        Reservation updated = reservationRepository.save(existingReservation);
+        return ReservationMapper.toDTO(updated);
     }
 
 
