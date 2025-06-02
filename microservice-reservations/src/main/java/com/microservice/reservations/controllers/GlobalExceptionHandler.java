@@ -1,9 +1,6 @@
 package com.microservice.reservations.controllers;
 
-import com.microservice.reservations.excepciones.ConflictoReservaException;
-import com.microservice.reservations.excepciones.NombreEnUsoException;
-import com.microservice.reservations.excepciones.ReservaNoEncontradaException;
-import com.microservice.reservations.excepciones.UsuarioNoEncontradoException;
+import com.microservice.reservations.excepciones.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +29,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(CanchaNoEncontradaException.class)
+    public ResponseEntity<String> handleCanchaNoEncontrada(CanchaNoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 
 
 }

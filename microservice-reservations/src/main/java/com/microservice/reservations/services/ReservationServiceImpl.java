@@ -1,17 +1,17 @@
 package com.microservice.reservations.services;
 
+import com.microservice.reservations.client.FieldClient;
 import com.microservice.reservations.client.UserClient;
 import com.microservice.reservations.entities.Reservation;
-import com.microservice.reservations.excepciones.ConflictoReservaException;
-import com.microservice.reservations.excepciones.NombreEnUsoException;
-import com.microservice.reservations.excepciones.ReservaNoEncontradaException;
-import com.microservice.reservations.excepciones.UsuarioNoEncontradoException;
+import com.microservice.reservations.excepciones.*;
 import com.microservice.reservations.http.request.ReservationRequestDTO;
 import com.microservice.reservations.http.response.ReservationResponseDTO;
 import com.microservice.reservations.http.response.UserResponseDTO;
 import com.microservice.reservations.mappers.ReservationMapper;
 import com.microservice.reservations.persistencies.ReservationRepository;
+import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,14 +28,29 @@ public class ReservationServiceImpl implements IReservationService {
     @Autowired
     private UserClient userClient;
 
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
+
+    private String topicName;
+
+    @Autowired
+    private FieldClient fieldClient;;
+
     @Override
     public ReservationResponseDTO registerReservation(ReservationRequestDTO reservationDTO) {
 
         try {
-            UserResponseDTO user = userClient.obtenerPorId(reservationDTO.getUserId());
+            userClient.obtenerPorId(reservationDTO.getUserId());
         } catch (Exception e) {
             throw new UsuarioNoEncontradoException("El usuario con ID " + reservationDTO.getUserId() + " no existe.");
         }
+
+        try {
+            fieldClient.get(reservationDTO.getFieldId());
+        } catch (Exception e) {
+            throw new CanchaNoEncontradaException("La cancha  con ID " + reservationDTO.getFieldId() + " no existe.");
+        }
+
 
         // Validar nombre de reserva único
         if (reservationRepository.existsByNombreReserva(reservationDTO.getNombreReserva())) {

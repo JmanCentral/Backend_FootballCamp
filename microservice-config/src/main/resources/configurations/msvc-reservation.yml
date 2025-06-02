@@ -13,10 +13,18 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create   # o update según tu necesidad
+      ddl-auto: update
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    topic:
+      reservas: reserva-topic
 
 eureka:
   instance:
@@ -24,4 +32,5 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
 
