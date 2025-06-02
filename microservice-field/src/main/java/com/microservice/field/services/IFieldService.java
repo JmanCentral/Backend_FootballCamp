@@ -9,12 +9,12 @@ public interface IFieldService {
 
     FieldResponseDTO save (FieldRequestDTO fieldRequest);
 
-    FieldResponseDTO findById (String id);
+    FieldResponseDTO findById (Long id);
 
     List<FieldResponseDTO> findAll ();
 
-    FieldResponseDTO update (FieldRequestDTO fieldRequest);
+    FieldResponseDTO update (Long id , FieldRequestDTO fieldRequest);
 
-    void delete (String id);
+    void delete (Long id);
 
 }

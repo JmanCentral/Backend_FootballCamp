@@ -1,5 +1,4 @@
 package com.microservice.field.entities;
-
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Field {
 
     @Id
-    private String id_cancha; // Mongo usa String para ObjectId por defecto
+    private Long id_cancha; // Mongo usa String para ObjectId por defecto
     private TipoCancha nombre_cancha;
     private String descripcion_cancha;
     private Double precio_cancha;

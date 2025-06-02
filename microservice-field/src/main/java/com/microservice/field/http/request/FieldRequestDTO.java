@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class FieldRequestDTO {
 
-    private String id_cancha;
+    private Long id_cancha;
     private TipoCancha nombre_cancha;
     private String descripcion_cancha;
     private Double precio_cancha;
