@@ -15,7 +15,6 @@ public interface IUserService {
     // Lista de respuestas seguras
     UserDTO update(UserRequestDTO dto);
 
-    public void deleteById(Long id);
-
+    void deleteById(Long id);
 
 }
