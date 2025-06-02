@@ -30,7 +30,7 @@ public class FIeldServiceImpl implements IFieldService {
 
     @Override
     public FieldResponseDTO findById(Long id) {
-        Field field = fieldRepository.findById(id)
+        Field field = fieldRepository.findByFieldId(id)
                 .orElseThrow(() -> new FactoryBeanNotInitializedException("Cancha no encontrada con ID: " + id));
         return FieldMapper.toDTO(field);
     }
@@ -49,7 +49,7 @@ public class FIeldServiceImpl implements IFieldService {
             throw new IllegalArgumentException("ID requerido para actualizar la cancha.");
         }
 
-        Field existing = fieldRepository.findById(id)
+        Field existing = fieldRepository.findByFieldId(id)
                 .orElseThrow(() -> new MissingFieldIdException("Cancha no encontrada con ID: " + id));
 
         // Aplicamos los cambios del DTO a la entidad existente
@@ -62,9 +62,9 @@ public class FIeldServiceImpl implements IFieldService {
 
     @Override
     public void delete(Long id) {
-        if (!fieldRepository.existsById(id)) {
+        if (!fieldRepository.existsByFieldId(id)) {
             throw new CannotDeleteFieldException("No se puede eliminar. Cancha no encontrada con ID: " + id);
         }
-        fieldRepository.deleteById(id);
+        fieldRepository.deleteByFieldId(id);
     }
 }
