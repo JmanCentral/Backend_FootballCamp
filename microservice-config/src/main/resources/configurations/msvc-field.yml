@@ -3,11 +3,9 @@ server:
 spring:
   application:
     name: msvc-field
-
   data:
     mongodb:
-      uri: mongodb://localhost:27017/Fielddatabase
-
+      uri: mongodb://root:mongopass@localhost:27017/mydb?authSource=admin
 eureka:
   instance:
     hostname: localhost

@@ -6,12 +6,12 @@ spring:
     name: msvc-users
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/UsersDB
+    url: jdbc:postgresql://localhost:5432/mypgdb
     username: postgres
-    password: edding350
+    password: pgpass
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
