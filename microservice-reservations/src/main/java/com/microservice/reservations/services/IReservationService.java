@@ -1,8 +1,12 @@
 package com.microservice.reservations.services;
 import com.microservice.reservations.http.request.ReservationRequestDTO;
 import com.microservice.reservations.http.response.ReservationResponseDTO;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+
+@Service
 public interface IReservationService {
 
     // Crear una nueva reserva
@@ -21,6 +25,7 @@ public interface IReservationService {
 
     // Eliminar una reserva por su ID
     void deleteById(Long id);
+
 
 
 }

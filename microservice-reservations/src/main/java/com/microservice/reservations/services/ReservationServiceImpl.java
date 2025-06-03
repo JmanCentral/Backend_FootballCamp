@@ -6,17 +6,18 @@ import com.microservice.reservations.entities.Reservation;
 import com.microservice.reservations.excepciones.*;
 import com.microservice.reservations.http.request.ReservationRequestDTO;
 import com.microservice.reservations.http.response.ReservationResponseDTO;
-import com.microservice.reservations.http.response.UserResponseDTO;
 import com.microservice.reservations.mappers.ReservationMapper;
 import com.microservice.reservations.persistencies.ReservationRepository;
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,15 +30,15 @@ public class ReservationServiceImpl implements IReservationService {
     private UserClient userClient;
 
     @Autowired
-    KafkaTemplate<String, String> kafkaTemplate;
-
-    private String topicName;
+    private FieldClient fieldClient;
 
     @Autowired
-    private FieldClient fieldClient;;
+    KafkaTemplate<String, Object> kafkaTemplate;
+
 
     @Override
     public ReservationResponseDTO registerReservation(ReservationRequestDTO reservationDTO) {
+
 
         try {
             userClient.obtenerPorId(reservationDTO.getUserId());
@@ -72,6 +73,13 @@ public class ReservationServiceImpl implements IReservationService {
         reservation.setFechaReserva(fecha); // no se pisa con now(), se toma del DTO
 
         Reservation saved = reservationRepository.save(reservation);
+
+
+        enviarEventoCanchaReservada(
+                saved.getFieldId(),
+                "OCUPADA"
+        );
+
         return ReservationMapper.toDTO(saved);
     }
 
@@ -131,10 +139,17 @@ public class ReservationServiceImpl implements IReservationService {
         return ReservationMapper.toDTO(updated);
     }
 
-
     @Override
     public void deleteById(Long id) {
         reservationRepository.deleteById(id);
+    }
+
+    public void enviarEventoCanchaReservada(Long fieldId, String nuevoEstado) {
+        Map<String, Object> evento = new HashMap<>();
+        evento.put("fieldId", fieldId);
+        evento.put("status", nuevoEstado);
+
+        kafkaTemplate.send("reservas-topic", evento); // Envía el Map como JSON
     }
 
 

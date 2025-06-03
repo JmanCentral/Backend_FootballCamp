@@ -1,6 +1,7 @@
 package com.microservice.field.services;
 
 
+import com.microservice.field.entities.Estado;
 import com.microservice.field.entities.Field;
 import com.microservice.field.excepciones.CannotDeleteFieldException;
 import com.microservice.field.excepciones.MissingFieldIdException;
@@ -57,6 +58,17 @@ public class FIeldServiceImpl implements IFieldService {
 
         Field updated = fieldRepository.save(existing);
         return FieldMapper.toDTO(updated);
+    }
+
+    @Override
+    public void actualizarEstadoCancha(Long fieldId, Estado nuevoEstado) {
+        Field field = fieldRepository.findByFieldId(fieldId)
+                .orElseThrow(() -> new FactoryBeanNotInitializedException("Cancha no encontrada con ID: " + fieldId));
+
+        field.setEstado_cancha(nuevoEstado); // Actualizamos el estado
+        fieldRepository.save(field); // Guardamos los cambios
+
+        System.out.println("Cancha ID: " + fieldId + " actualizada a estado: " + nuevoEstado);
     }
 
 

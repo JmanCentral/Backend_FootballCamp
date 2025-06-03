@@ -1,5 +1,6 @@
 package com.microservice.field.services;
 
+import com.microservice.field.entities.Estado;
 import com.microservice.field.http.request.FieldRequestDTO;
 import com.microservice.field.http.response.FieldResponseDTO;
 
@@ -16,5 +17,8 @@ public interface IFieldService {
     FieldResponseDTO update (Long id , FieldRequestDTO fieldRequest);
 
     void delete (Long id);
+
+    public void actualizarEstadoCancha(Long fieldId, Estado nuevoEstado);
+
 
 }
