@@ -1,15 +1,11 @@
 package com.microservice.field.http.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CanchaStatusEvent {
+public class ReservaEventDTO {
     private Long fieldId;
     private String status;
 }

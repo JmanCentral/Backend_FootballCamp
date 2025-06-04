@@ -6,10 +6,10 @@ import com.microservice.reservations.entities.Reservation;
 import com.microservice.reservations.excepciones.*;
 import com.microservice.reservations.http.request.ReservationRequestDTO;
 import com.microservice.reservations.http.response.ReservationResponseDTO;
+import com.microservice.reservations.kafka.ReservaEventDTO;
 import com.microservice.reservations.mappers.ReservationMapper;
 import com.microservice.reservations.persistencies.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -145,13 +145,10 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     public void enviarEventoCanchaReservada(Long fieldId, String nuevoEstado) {
-        Map<String, Object> evento = new HashMap<>();
-        evento.put("fieldId", fieldId);
-        evento.put("status", nuevoEstado);
-
-        kafkaTemplate.send("reservas-topic", evento); // Envía el Map como JSON
+        ReservaEventDTO eventDTO = new ReservaEventDTO();
+        eventDTO.setFieldId(fieldId);
+        eventDTO.setStatus(nuevoEstado);
+        kafkaTemplate.send("reservas-topic", eventDTO); // Envía el Map como JSON
     }
-
-
 
 }

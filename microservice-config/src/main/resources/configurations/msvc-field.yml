@@ -19,6 +19,7 @@ spring:
       properties:
         spring.json.trusted.packages: "*"
 
+
 eureka:
   instance:
     hostname: localhost
