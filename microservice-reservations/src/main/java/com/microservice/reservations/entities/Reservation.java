@@ -19,11 +19,13 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nombreReserva;
     private LocalDate fechaReserva;
     private LocalTime horaInicio;
     private LocalTime horaFin;
     @Enumerated(EnumType.STRING)
     private EstadoReserva estado;
     private Long userId;
+    private Long fieldId;
 }
 

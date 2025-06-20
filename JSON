@@ -1,0 +1,29 @@
+{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "username": "juanp123",
+  "password": "segura123",
+  "email": "juan.perez@example.com",
+  "telefono": "3214567890"
+}
+
+
+{
+  "nombreReserva": "Partido Amistoso",
+  "fechaReserva": "2025-06-05",
+  "horaInicio": "18:00",
+  "horaFin": "20:00",
+  "estado": "PENDIENTE",
+  "userId": 1,
+  "fieldId": 1
+}
+
+{
+  "fieldId": 1,
+  "nombre_cancha": "FUTBOL_5",
+  "descripcion_cancha": "Cancha sintética de fútbol 5, con iluminación nocturna.",
+  "precio_cancha": 75000.0,
+  "ubicacion_cancha": "Calle 123 #45-67, Bogotá",
+  "fecha_cancha": "2025-06-02",
+  "estado_cancha": "DISPONIBLE"
+}

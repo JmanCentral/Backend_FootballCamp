@@ -1,4 +1,4 @@
-package com.microservice.reservations.http.request;
+package com.microservice.reservations.http.response;
 
 import com.microservice.reservations.entities.EstadoReserva;
 import lombok.AllArgsConstructor;
@@ -13,12 +13,15 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ReservationDTO {
+public class ReservationResponseDTO {
 
     private Long id;
+    private String nombreReserva;
     private LocalDate fechaReserva;
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private EstadoReserva estado;
     private Long userId;
+    private Long fieldId;
+
 }

@@ -1,4 +1,4 @@
-package com.microservice.users.microservice_users.http.request;
+package com.microservice.reservations.http.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class UserDTO {
+public class UserResponseDTO {
 
     private Long id;
     private String nombre;

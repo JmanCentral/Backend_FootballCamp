@@ -14,3 +14,7 @@ spring:
           uri: http://localhost:8862
           predicates:
             - Path=/api/reservations/**
+        - id: fields
+          uri: http://localhost:8100
+          predicates:
+            - Path=/api/fields/**
